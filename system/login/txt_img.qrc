@@ -1,0 +1,6 @@
+<RCC>
+  <qresource prefix="/imagenes">
+    <file>cont_img.jpg</file>
+    <file>txt_img.jpg</file>
+  </qresource>
+</RCC>
