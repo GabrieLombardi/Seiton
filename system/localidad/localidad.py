@@ -18,8 +18,8 @@ class Localidad():
         # cargo la tabla del qtDesigner con los Categorias consultados
         for localidads1 in Localidades:
             id_localidad = localidads1[0] # ID
-            nombreloc = localidads1[1] # CATEGORIA
-            cod_postal = localidads1[2] # CATEGORIA
+            nombreloc = localidads1[1] # nombre
+            cod_postal = localidads1[2] # codigo postal
             print(localidads1)
 
             self.tablalocalidad.setRowCount(self.index + 1) #Agrego una fila
@@ -41,7 +41,7 @@ class Localidad():
             # print('index:',index)
         else:
             # Establecer ancho de las columnas cuando paso por primera vez
-            for indice, ancho in enumerate((10, 300,300), start=0):
+            for indice, ancho in enumerate((10, 150,150), start=0):
                 self.tablalocalidad.setColumnWidth(indice, ancho)
 
             miConsulta = "SELECT * FROM localidad;"
@@ -54,17 +54,17 @@ class Localidad():
     def saveLocalidades(self):
         """Guarda y actualiza lo modificado en la BD"""
         self.localidad = self.lineEdit_localidad.text().upper()
-        self.localidad = self.lineEdit_codpost.text()
+        self.cod_postal = self.lineEdit_codpost.text()
 
 
         miCrud=CRUD() #instancio la clase CRUD del módulo DBCrud.py de herramientas
         if self.estado=='AGREGAR':
             misDatos = (self.localidad,self.cod_postal)
-            miConsulta = "INSERT INTO localidad (nombreloc) VALUES (?);(cod_postal) VALUES (?);"
-            miCrud.Create(miConsulta, (misDatos,)) #Ejecuto Create de miCrud (ver instanciamiento más arriba)
+            miConsulta = "INSERT INTO localidad (nombreloc, cod_postal) VALUES (?,?);"
+            miCrud.Create(miConsulta,misDatos) #Ejecuto Create de miCrud (ver instanciamiento más arriba)
         elif self.estado=='EDITAR':
-            miConsulta = "UPDATE localidad SET  nombreloc = ?; cod_postal =?  WHERE Id_localidad = ?;"
-            misDatos = (self.localidad, self.selectedId)
+            miConsulta = "UPDATE localidad SET  nombreloc = ?, cod_postal =?  WHERE Id_localidad = ?;"
+            misDatos = (self.localidad,self.cod_postal, self.selectedId)
             miCrud.Update(miConsulta, (misDatos,)) #Ejecuto Update de miCrud (ver instanciamiento más arriba)
         elif self.estado== 'ELIMINAR':
             miConsulta="DELETE from localidad where Id_localidad=?;"
