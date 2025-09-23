@@ -10,7 +10,7 @@ class Main(QMainWindow):
     def __init__(self, parent=None):
 
         super(Main, self).__init__(parent)
-        loadUi('main.ui', self)
+        loadUi('pantallas.ui', self)
         # defino las variables que voy a utilizar
         self.lastId=0
         self.selectedId=0
@@ -19,14 +19,25 @@ class Main(QMainWindow):
 
         #------------- CATEGORIAS
         Localidad.showLocalidades(self) #primero muestro contenidos en la pantalla
-        Localidad.readLocaliades(self,self.lastId)
+        Localidad.readLocalidades(self,self.lastId)
         # defino botones con su función asociada que son metodos del objeto categoria
         self.btnGuardarLocalidad.clicked.connect(lambda: Localidad.saveLocalidades(self))
 
         self.btnAgregarLocalidad.clicked.connect(lambda: Localidad.createLocalidades(self))
         self.btnEditarLocalidad.clicked.connect(lambda: Localidad.updateLocalidades(self))
-        self.btnEliminarLocalidad.clicked.connect(lambda: Localidad.deleteLocalidades(self))
+        # self.btnEliminarLocalidad.clicked.connect(lambda: Localidad.deleteLocalidades(self))
         self.btnBuscarLocalidad.clicked.connect(lambda: Localidad.searchLocalidades(self))
 
         self.tablalocalidad.doubleClicked.connect(lambda: Localidad.doubleClicked_tabla(self))    
         self.tablalocalidad.clicked.connect(lambda: Localidad.clicked_tabla(self))
+
+def showCategorias():
+        Localidad.showLocalidades()
+
+                
+# ------ main -------------
+if __name__ == "__main__":
+    mi_aplicacion = QApplication(sys.argv)
+    mi_app = Main()
+    mi_app.show()
+    sys.exit(mi_aplicacion.exec_())

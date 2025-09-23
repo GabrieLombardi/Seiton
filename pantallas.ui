@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1119</width>
-    <height>600</height>
+    <height>899</height>
    </rect>
   </property>
   <property name="palette">
@@ -445,7 +445,7 @@
      <attribute name="title">
       <string>Localidad</string>
      </attribute>
-     <widget class="QTableWidget" name="tabla_ciudad">
+     <widget class="QTableWidget" name="tablalocalidad">
       <property name="geometry">
        <rect>
         <x>50</x>
@@ -453,6 +453,9 @@
         <width>381</width>
         <height>192</height>
        </rect>
+      </property>
+      <property name="dragEnabled">
+       <bool>true</bool>
       </property>
       <column>
        <property name="text">
@@ -469,16 +472,6 @@
         <string>Codigo Postal</string>
        </property>
       </column>
-     </widget>
-     <widget class="QTextEdit" name="textEdit_localidad">
-      <property name="geometry">
-       <rect>
-        <x>20</x>
-        <y>50</y>
-        <width>171</width>
-        <height>31</height>
-       </rect>
-      </property>
      </widget>
      <widget class="QLineEdit" name="lineEdit">
       <property name="geometry">
@@ -591,6 +584,16 @@
        <string>Guardar</string>
       </property>
      </widget>
+     <widget class="QLineEdit" name="lineEdit_localidad">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>50</y>
+        <width>161</width>
+        <height>31</height>
+       </rect>
+      </property>
+     </widget>
     </widget>
     <widget class="QWidget" name="chofer">
      <attribute name="title">
@@ -625,6 +628,55 @@
         <string>Codigo Postal</string>
        </property>
       </column>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="planillas">
+     <attribute name="title">
+      <string>Planillas</string>
+     </attribute>
+     <widget class="QToolBox" name="toolBox">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>40</y>
+        <width>931</width>
+        <height>391</height>
+       </rect>
+      </property>
+      <property name="currentIndex">
+       <number>2</number>
+      </property>
+      <widget class="QWidget" name="page">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>931</width>
+         <height>329</height>
+        </rect>
+       </property>
+       <attribute name="label">
+        <string>Page 1</string>
+       </attribute>
+      </widget>
+      <widget class="QWidget" name="page_2">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>931</width>
+         <height>298</height>
+        </rect>
+       </property>
+       <attribute name="label">
+        <string>Page 2</string>
+       </attribute>
+      </widget>
+      <widget class="QWidget" name="page_3">
+       <attribute name="label">
+        <string>Page</string>
+       </attribute>
+      </widget>
      </widget>
     </widget>
    </widget>

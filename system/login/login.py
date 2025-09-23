@@ -17,7 +17,7 @@ class LoginWindow(QMainWindow):
             "Al presionar el botón de continuar se ingresara al menú principal del programa."
         )
         # Asigna la imagen al QLabel
-        # self.instrucciones.label_img.setPixmap(QPixmap("C:/Users/GAYBRIEL/Desktop/2025/Practica Profesional I/Seiton/system/login/txt_img.png"))
+        self.instrucciones.label_img.setPixmap(QPixmap("C:/Users/GAYBRIEL/Desktop/2025/Practica Profesional I/Seiton/system/login/txt_img.png"))
         self.instrucciones.show()
 
 if __name__ == "__main__":
