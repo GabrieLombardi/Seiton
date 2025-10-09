@@ -1,6 +1,7 @@
 import sqlite3
 from PyQt5.QtWidgets import QTableWidget, QTableWidgetItem, QLineEdit
 from tools.DBCrud import CRUD
+from PyQt5.QtWidgets import QMessageBox
 
 class Localidad():
     """Clase especifidica de las Localidades """
@@ -111,23 +112,34 @@ class Localidad():
         """Realiza la busqueda de las localidads mediante lo que se ingresa en el lineedit"""
         self.conexion_BD = sqlite3.connect("pedidos.sqlite3")
         self.cursor = self.conexion_BD.cursor()
-        buscar = self.lineEdit.text()
-        self.cursor.execute("SELECT * FROM localidad WHERE localidad LIKE ?", ('%' + buscar + '%',))
+        buscar = self.lineEditbuscar.text()
+        self.cursor.execute("SELECT * FROM localidad WHERE nombreloc LIKE ?", ('%' + buscar + '%',))
         localidads = self.cursor.fetchall()
         self.tablalocalidad.setRowCount(0)
+        self.tablalocalidad.setColumnCount(3)
         for localidad in localidads:
             row_position = self.tablalocalidad.rowCount()
             self.tablalocalidad.insertRow(row_position)
             self.tablalocalidad.setItem(row_position, 0, QTableWidgetItem(str(localidad[0])))
             self.tablalocalidad.setItem(row_position, 1, QTableWidgetItem(localidad[1]))
+            self.tablalocalidad.setItem(row_position, 2, QTableWidgetItem(str(localidad[2])))
     
 
     def createLocalidades(self):
         self.estado='AGREGAR'
         self.lineEdit_localidad.clear()
-        
-        # mandar el foco a lineedit_nombre
-        self.lineEdit_localidad.setFocus()
+        self.lineEdit_localidad.setEnabled(True) # activa el lineedit localidad
+
+        self.lineEdit_localidad.setFocus() # mandar el foco a lineedit_nombre
+        self.lineEdit_codpost.clear()
+        self.lineEdit_codpost.setEnabled(True)  # activa el lineedit cod_postal 
+        #     # Verifica si el lineEdit_localidad no está vacío
+        # if self.lineEdit_localidad.text().strip() != "":
+        #     self.lineEdit_codpost.setEnabled(True)  # activa el lineedit cod_postal
+        # else:
+        #     # Muestra un mensaje pidiendo llenar el lineedit localidad
+        #     QMessageBox.warning(None, "Advertencia", "Por favor, complete el campo Localidad antes de continuar.")
+        #     self.lineEdit_codpost.setEnabled(False)
 
     def updateLocalidades(self): # modificar Categorias
         self.estado='EDITAR'
@@ -136,7 +148,11 @@ class Localidad():
         self.lineEdit_codpost.setText(self.tablalocalidad.item(self.tablalocalidad.currentRow(), 2).text())
 
         # mandar el foco a lineedit_nombre
-        self.lineEdit_localidad.setFocus()       
+        self.lineEdit_localidad.setEnabled(True) # activa el lineedit localidad
+        self.lineEdit_localidad.setFocus() 
+        self.lineEdit_codpost.setEnabled(True)  # activa el lineedit cod_postal
+        self.lineEdit_preciounid.setEnabled(True)  # activa el lineedit precio_un
+
 
     def deleteLocalidades(self):
         self.estado='ELIMINAR'
@@ -153,14 +169,14 @@ class Localidad():
         # Cerrar la conexión
         conn.close()
         miCrud=CRUD()
-        miConsulta = "UPDATE Categorias SET localidad= ? WHERE id_localidad = ?;"
+        miConsulta = "UPDATE localidad SET nombreloc= ? WHERE id_localidad = ?;"
 
         # misDatos = (self.localidad, self.selectedId)
         misDatos = (self.localidad, self.selectedId)
 
         miCrud.Update(miConsulta, (misDatos,)) #Ejecuto Update de miCrud (ver instanciamiento más arriba)
         
-        Localidad.readLocaliades(self, 0)
+        Localidad.readLocalidades(self, 0)
         
         Localidad.showLocalidades(self)
     
