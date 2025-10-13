@@ -33,8 +33,6 @@ class Main(QMainWindow):
         self.tablalocalidad.doubleClicked.connect(lambda: Localidad.doubleClicked_tabla(self))    
         self.tablalocalidad.clicked.connect(lambda: Localidad.clicked_tabla(self))
 
-#holaaaa pilar
-#otro hola
 #------------- PRODUCTOS
         Producto.showProductos(self) #primero muestro contenidos en la pantalla
         Producto.readProductos(self,self.lastId)
