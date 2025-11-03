@@ -4,7 +4,7 @@ from PyQt5.uic import loadUi
 
 
 import sys
-from system.localidad.localidad import Localidad 
+from system.localidad.localidad import Localidad
 from system.producto.producto import Producto
 from system.chofer.chofer import Chofer
 
