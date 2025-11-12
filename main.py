@@ -4,7 +4,7 @@ from PyQt5.uic import loadUi
 
 
 import sys
-from system.localidad.localidad import Localidad 
+from system.localidad.localidad import Localidad
 from system.producto.producto import Producto
 from system.chofer.chofer import Chofer
 
@@ -44,8 +44,8 @@ class Main(QMainWindow):
         self.btnEliminarLocalidad.clicked.connect(lambda: Localidad.deleteLocalidades(self))
         self.btnBuscarProducto.clicked.connect(lambda: Producto.searchProductos(self))
 
-        self.tablalocalidad.doubleClicked.connect(lambda: Producto.doubleClicked_tabla(self))    
-        self.tablalocalidad.clicked.connect(lambda: Producto.clicked_tabla(self))
+        self.tablaproductos.doubleClicked.connect(lambda: Producto.doubleClicked_tabla(self))    
+        self.tablaproductos.clicked.connect(lambda: Producto.clicked_tabla(self))
 
 #------------- CHOFERES
         Chofer.showChoferes(self) #primero muestro contenidos en la pantalla  
@@ -59,7 +59,7 @@ class Main(QMainWindow):
         self.btnBuscarChofer.clicked.connect(lambda: Chofer.searchChoferes(self))
         self.tablachoferes.doubleClicked.connect(lambda: Chofer.doubleClicked_tabla(self))    
         self.tablachoferes.clicked.connect(lambda: Chofer.clicked_tabla(self))
-        
+
 
 def showLocalidades():
         Localidad.showLocalidades()
@@ -68,7 +68,6 @@ def showProductos():
 def showChoferes():
         Chofer.showChoferes()
 
-                
 # ------ main -------------
 if __name__ == "__main__":
     mi_aplicacion = QApplication(sys.argv)
