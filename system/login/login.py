@@ -11,8 +11,21 @@ class Main(QMainWindow):
         ui_path = Path(__file__).resolve().parents[2] / "main.ui"
         uic.loadUi(str(ui_path), self)
         
+        # Ocultar frame inicialmente
+        if hasattr(self, 'frame'):
+            self.frame.setVisible(False)
+        
+        # Conectar botón continuar (login)
         if hasattr(self, 'pushButton_2'):
             self.pushButton_2.clicked.connect(self.abrir_menu)
+        
+        # Conectar botón instrucciones (mostrar frame)
+        if hasattr(self, 'pushButton_3'):
+            self.pushButton_3.clicked.connect(self.mostrar_instrucciones)
+        
+        # Conectar botón cerrar instrucciones (ocultar frame)
+        if hasattr(self, 'pushButton_cerrar_instrucciones'):
+            self.pushButton_cerrar_instrucciones.clicked.connect(self.ocultar_instrucciones)
 
     def abrir_menu(self):
         # Simple verification: read usuario and contraseña from the UI
@@ -49,6 +62,16 @@ class Main(QMainWindow):
             self.lineEdit.clear()
             self.lineEdit_2.clear()
             self.lineEdit.setFocus()
+
+    def mostrar_instrucciones(self):
+        """Mostrar frame de instrucciones"""
+        if hasattr(self, 'frame'):
+            self.frame.setVisible(True)
+
+    def ocultar_instrucciones(self):
+        """Ocultar frame de instrucciones"""
+        if hasattr(self, 'frame'):
+            self.frame.setVisible(False)
 
 class MenuPrincipal(QMainWindow):
     def __init__(self):
