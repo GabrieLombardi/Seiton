@@ -1,0 +1,3 @@
+Python 3.9
+PyQt5
+MySQL 8.0
