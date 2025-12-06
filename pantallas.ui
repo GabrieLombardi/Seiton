@@ -512,7 +512,7 @@
         </font>
        </property>
        <property name="currentIndex">
-        <number>6</number>
+        <number>4</number>
        </property>
        <widget class="QWidget" name="localidad">
         <attribute name="title">
@@ -1546,8 +1546,8 @@
          <widget class="QPushButton" name="btn_agregar_cliente_3">
           <property name="geometry">
            <rect>
-            <x>630</x>
-            <y>530</y>
+            <x>750</x>
+            <y>480</y>
             <width>93</width>
             <height>28</height>
            </rect>
@@ -1559,8 +1559,8 @@
          <widget class="QPushButton" name="btn_eliminar_cliente">
           <property name="geometry">
            <rect>
-            <x>630</x>
-            <y>610</y>
+            <x>750</x>
+            <y>560</y>
             <width>93</width>
             <height>28</height>
            </rect>
@@ -1572,8 +1572,8 @@
          <widget class="QPushButton" name="btn_editar_cliente">
           <property name="geometry">
            <rect>
-            <x>630</x>
-            <y>570</y>
+            <x>750</x>
+            <y>520</y>
             <width>93</width>
             <height>28</height>
            </rect>
@@ -1772,7 +1772,7 @@
            <rect>
             <x>10</x>
             <y>480</y>
-            <width>611</width>
+            <width>731</width>
             <height>192</height>
            </rect>
           </property>
@@ -1820,8 +1820,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>991</width>
-            <height>410</height>
+            <width>100</width>
+            <height>30</height>
            </rect>
           </property>
           <attribute name="label">
@@ -2273,8 +2273,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>991</width>
-            <height>410</height>
+            <width>100</width>
+            <height>30</height>
            </rect>
           </property>
           <attribute name="label">
