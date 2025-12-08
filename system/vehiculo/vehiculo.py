@@ -147,3 +147,5 @@ class Vehiculo():
                 main_window.tablavehiculo.setItem(index, 3, QTableWidgetItem(str(vehiculo1[3])))
         except Exception as e:
             print(f"Error al mostrar vehículos: {e}")
+
+"""f"""
