@@ -166,7 +166,7 @@ background-color: rgb(255, 255, 255);</string>
     <cursorShape>OpenHandCursor</cursorShape>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-color: rgb(99, 106, 232);  border-radius: 15px</string>
+    <string notr="true">background-color: rgb(156, 180, 223);  border-radius: 15px; border: 1.5px solid black;</string>
    </property>
    <property name="text">
     <string>Continuar</string>
@@ -207,8 +207,8 @@ background-color: transparent;
   <widget class="QFrame" name="frame">
    <property name="geometry">
     <rect>
-     <x>140</x>
-     <y>60</y>
+     <x>990</x>
+     <y>-150</y>
      <width>841</width>
      <height>431</height>
     </rect>
@@ -261,6 +261,38 @@ background-color: transparent;
      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;Para poder ingresar al sistema, el usuario deberá ingresar&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;su usuario y contraseñade forma correcta &lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;en los cuadros de texto designados.&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;Luego presionar el botón Continuar para ingresar. &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
    </widget>
+  </widget>
+  <widget class="QPushButton" name="pushButton_4">
+   <property name="geometry">
+    <rect>
+     <x>960</x>
+     <y>580</y>
+     <width>151</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>10</pointsize>
+     <weight>50</weight>
+     <bold>false</bold>
+    </font>
+   </property>
+   <property name="cursor">
+    <cursorShape>OpenHandCursor</cursorShape>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border : none;
+color: #636ae8;
+background-color: transparent;
+</string>
+   </property>
+   <property name="text">
+    <string>Cambiar Contraseña</string>
+   </property>
+   <property name="flat">
+    <bool>true</bool>
+   </property>
   </widget>
  </widget>
  <resources/>

@@ -7,6 +7,8 @@ import sys
 from system.localidad.localidad import Localidad
 from system.producto.producto import Producto
 from system.chofer.chofer import Chofer
+from system.vehiculo.vehiculo import Vehiculo
+from system.cliente.cliente import Cliente
 
 class Main(QMainWindow):
     def __init__(self, parent=None):
@@ -60,13 +62,31 @@ class Main(QMainWindow):
         self.tablachoferes.doubleClicked.connect(lambda: Chofer.doubleClicked_tabla(self))    
         self.tablachoferes.clicked.connect(lambda: Chofer.clicked_tabla(self))
 
+#------------- VEHICULOS
+        self.vehiculo = Vehiculo()
+        self.vehiculo.showVehiculos(self)
+        self.btn_guardar_vehiculo.clicked.connect(lambda: self.vehiculo.saveVehiculos(self))
+        self.btn_agregar_vehiculo.clicked.connect(lambda: self.vehiculo.createVehiculos(self))
+        self.btn_editar_vehiculo.clicked.connect(lambda: self.vehiculo.updateVehiculos(self))
+        self.btn_eliminar_vehiculo.clicked.connect(lambda: self.vehiculo.deleteVehiculos(self))
+        self.btn_buscar_vehiculo.clicked.connect(lambda: self.vehiculo.searchVehiculos(self))
+        self.tablavehiculo.doubleClicked.connect(lambda: self.vehiculo.doubleClicked_tabla(self))
+        self.tablavehiculo.clicked.connect(lambda: self.vehiculo.clicked_tabla(self))
+        # El lineEdit_buscar_2 se usa para escribir el texto a filtrar en la búsqueda de vehículos.
 
-def showLocalidades():
-        Localidad.showLocalidades()
-def showProductos():
-        Producto.showProductos()
-def showChoferes():
-        Chofer.showChoferes()
+#------------- CLIENTES
+        self.cliente = Cliente()
+        self.cliente.showClientes(self)
+        self.btn_guardar_cliente.clicked.connect(lambda: self.cliente.saveClientes(self))
+        self.btn_agregar_cliente.clicked.connect(lambda: self.cliente.createClientes(self))
+        if hasattr(self, 'btn_agregar_cliente_3'):
+            self.btn_agregar_cliente_3.clicked.connect(lambda: self.cliente.createClientes(self))
+        self.btn_editar_cliente.clicked.connect(lambda: self.cliente.updateClientes(self))
+        self.btn_eliminar_cliente.clicked.connect(lambda: self.cliente.deleteClientes(self))
+        self.btn_buscar_cliente.clicked.connect(lambda: self.cliente.searchClientes(self))
+        self.tabla_cliente.doubleClicked.connect(lambda: self.cliente.doubleClicked_tabla(self) if hasattr(self.cliente, 'doubleClicked_tabla') else None)
+        self.tabla_cliente.clicked.connect(lambda: self.cliente.clicked_tabla(self) if hasattr(self.cliente, 'clicked_tabla') else None)
+        # El lineEdit_buscar_cliente se usa para escribir el texto a filtrar en la búsqueda de clientes.
 
 # ------ main -------------
 if __name__ == "__main__":

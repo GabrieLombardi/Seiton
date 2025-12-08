@@ -458,6 +458,97 @@
      <height>31</height>
     </rect>
    </property>
+   <property name="palette">
+    <palette>
+     <active>
+      <colorrole role="Button">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>156</red>
+         <green>180</green>
+         <blue>223</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="Base">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>156</red>
+         <green>180</green>
+         <blue>223</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="Window">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>156</red>
+         <green>180</green>
+         <blue>223</blue>
+        </color>
+       </brush>
+      </colorrole>
+     </active>
+     <inactive>
+      <colorrole role="Button">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>156</red>
+         <green>180</green>
+         <blue>223</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="Base">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>156</red>
+         <green>180</green>
+         <blue>223</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="Window">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>156</red>
+         <green>180</green>
+         <blue>223</blue>
+        </color>
+       </brush>
+      </colorrole>
+     </inactive>
+     <disabled>
+      <colorrole role="Button">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>156</red>
+         <green>180</green>
+         <blue>223</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="Base">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>156</red>
+         <green>180</green>
+         <blue>223</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="Window">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>156</red>
+         <green>180</green>
+         <blue>223</blue>
+        </color>
+       </brush>
+      </colorrole>
+     </disabled>
+    </palette>
+   </property>
    <property name="font">
     <font>
      <pointsize>10</pointsize>
@@ -466,7 +557,7 @@
     </font>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-color: rgb(99, 106, 232);  border-radius: 15px</string>
+    <string notr="true">background-color: rgb(156, 180, 223);  border-radius: 15px; border: 1.5px solid black;</string>
    </property>
    <property name="text">
     <string>Planillas</string>
@@ -489,7 +580,7 @@
     </font>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-color: rgb(99, 106, 232);  border-radius: 15px</string>
+    <string notr="true">background-color: rgb(156, 180, 223);  border-radius: 15px; border: 1.5px solid black;</string>
    </property>
    <property name="text">
     <string>Productos</string>
@@ -512,7 +603,7 @@
     </font>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-color: rgb(99, 106, 232);  border-radius: 15px</string>
+    <string notr="true">background-color: rgb(156, 180, 223);  border-radius: 15px; border: 1.5px solid black;</string>
    </property>
    <property name="text">
     <string>Salir</string>
@@ -535,7 +626,7 @@
     </font>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-color: rgb(99, 106, 232);  border-radius: 15px</string>
+    <string notr="true">background-color: rgb(156, 180, 223);  border-radius: 15px; border: 1.5px solid black;</string>
    </property>
    <property name="text">
     <string>Datos</string>
@@ -563,58 +654,6 @@
      <height>70</height>
     </size>
    </property>
-  </widget>
-  <widget class="QToolBox" name="toolBox">
-   <property name="geometry">
-    <rect>
-     <x>20</x>
-     <y>180</y>
-     <width>85</width>
-     <height>147</height>
-    </rect>
-   </property>
-   <property name="currentIndex">
-    <number>2</number>
-   </property>
-   <widget class="QWidget" name="page">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>0</y>
-      <width>85</width>
-      <height>54</height>
-     </rect>
-    </property>
-    <attribute name="label">
-     <string>Page 1</string>
-    </attribute>
-   </widget>
-   <widget class="QWidget" name="page_2">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>0</y>
-      <width>85</width>
-      <height>54</height>
-     </rect>
-    </property>
-    <attribute name="label">
-     <string>Page 2</string>
-    </attribute>
-   </widget>
-   <widget class="QWidget" name="page_3">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>0</y>
-      <width>85</width>
-      <height>54</height>
-     </rect>
-    </property>
-    <attribute name="label">
-     <string>Page</string>
-    </attribute>
-   </widget>
   </widget>
  </widget>
  <resources/>
