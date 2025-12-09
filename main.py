@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QApplication, QMainWindow, QTableWidget
+from PyQt5.QtWidgets import QApplication, QMainWindow, QTableWidget, QPushButton, QTableWidgetItem, QFrame
 # from sqlshot import sqlqueryselecttbl,sqlquerytitlesearch
 from PyQt5.uic import loadUi
 
@@ -15,6 +15,35 @@ class Main(QMainWindow):
 
         super(Main, self).__init__(parent)
         loadUi('pantallas.ui', self)
+        # Asignar la fecha actual al campo de la planilla
+        from PyQt5.QtCore import QDate
+        hoy = QDate.currentDate().toString("dd/MM/yyyy")
+        if hasattr(self, "lineEdit_fecha"):
+            self.lineEdit_fecha.setText(hoy)
+        # Configuración de botones de planilla
+        import sqlite3
+        self.tabla_seleccionar_datos = self.findChild(QTableWidget, "tabla_seleccionar_datos")
+        self.btn_agregar_localidad_planilla = self.findChild(QPushButton, "btn_agregar_localidad_planilla")
+        self.btn_agregar_producto_planilla = self.findChild(QPushButton, "btn_agregar_producto_planilla")
+        self.btn_agregar_chofer_planilla = self.findChild(QPushButton, "btn_agregar_chofer_planilla")
+        self.btn_agregar_vehiculo_planilla = self.findChild(QPushButton, "btn_agregar_vehiculo_planilla")
+        self.btn_agregar_cliente_planilla = self.findChild(QPushButton, "btn_agregar_cliente_planilla")
+        self.btn_agregar_planilla_2 = self.findChild(QPushButton, "btn_agregar_planilla_2")
+        self.frame_6 = self.findChild(QFrame, "frame_6")
+        self.frame_10 = self.findChild(QFrame, "frame_10")
+        # Ocultar los frames al inicio
+        if self.frame_6:
+            self.frame_6.setVisible(False)
+        if self.frame_10:
+            self.frame_10.setVisible(False)
+        self.btn_agregar_localidad_planilla.clicked.connect(self.mostrar_localidades)
+        self.btn_agregar_producto_planilla.clicked.connect(self.mostrar_productos)
+        self.btn_agregar_chofer_planilla.clicked.connect(self.mostrar_choferes)
+        self.btn_agregar_vehiculo_planilla.clicked.connect(self.mostrar_vehiculos)
+        self.btn_agregar_cliente_planilla.clicked.connect(self.mostrar_clientes)
+        # Mostrar frames al presionar btn_agregar_planilla_2
+        if self.btn_agregar_planilla_2:
+            self.btn_agregar_planilla_2.clicked.connect(self.mostrar_frames_planilla)
         # defino las variables que voy a utilizar
         self.lastId=0
         self.selectedId=0
@@ -87,6 +116,55 @@ class Main(QMainWindow):
         self.tabla_cliente.doubleClicked.connect(lambda: self.cliente.doubleClicked_tabla(self) if hasattr(self.cliente, 'doubleClicked_tabla') else None)
         self.tabla_cliente.clicked.connect(lambda: self.cliente.clicked_tabla(self) if hasattr(self.cliente, 'clicked_tabla') else None)
         # El lineEdit_buscar_cliente se usa para escribir el texto a filtrar en la búsqueda de clientes.
+
+    def cargar_tabla(self, query, headers):
+        import sqlite3
+        conn = sqlite3.connect('pedidos.sqlite3')
+        cursor = conn.cursor()
+        cursor.execute(query)
+        rows = cursor.fetchall()
+        # Omitir la columna ID
+        if headers and headers[0].strip().upper() == 'ID':
+            headers = headers[1:]
+            rows = [row[1:] for row in rows]
+        self.tabla_seleccionar_datos.setRowCount(len(rows))
+        self.tabla_seleccionar_datos.setColumnCount(len(headers))
+        self.tabla_seleccionar_datos.setHorizontalHeaderLabels(headers)
+        for row_idx, row in enumerate(rows):
+            for col_idx, value in enumerate(row):
+                self.tabla_seleccionar_datos.setItem(row_idx, col_idx, QTableWidgetItem(str(value)))
+        conn.close()
+
+    def mostrar_localidades(self):
+        query = "SELECT * FROM localidad"
+        headers = ['ID', 'Nombre', 'Código Postal']
+        self.cargar_tabla(query, headers)
+
+    def mostrar_productos(self):
+        query = "SELECT * FROM Producto"
+        headers = ['ID', 'Descripción', 'Código', 'Precio']
+        self.cargar_tabla(query, headers)
+
+    def mostrar_choferes(self):
+        query = "SELECT * FROM chofer"
+        headers = ['ID', 'Nombre', 'Cuit', 'DNI', 'F/Nac', 'Teléfono', 'Dirección']
+        self.cargar_tabla(query, headers)
+
+    def mostrar_vehiculos(self):
+        query = "SELECT * FROM vehiculo"
+        headers = ['ID', 'Matricula', 'Descripción']
+        self.cargar_tabla(query, headers)
+
+    def mostrar_clientes(self):
+        query = "SELECT c.id_cliente, c.nombre, c.cuit, c.direccion, c.tel, c.dni, l.nombreloc FROM cliente c LEFT JOIN localidad l ON c.id_loc = l.Id_localidad"
+        headers = ['ID', 'Nombre', 'Cuit', 'Dirección', 'Teléfono', 'DNI', 'Localidad']
+        self.cargar_tabla(query, headers)
+
+    def mostrar_frames_planilla(self):
+        if self.frame_6:
+            self.frame_6.setVisible(True)
+        if self.frame_10:
+            self.frame_10.setVisible(True)
 
 # ------ main -------------
 if __name__ == "__main__":
