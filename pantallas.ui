@@ -1443,6 +1443,9 @@
             <height>192</height>
            </rect>
           </property>
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
           <column>
            <property name="text">
             <string>ID</string>
@@ -2638,7 +2641,7 @@
           <rect>
            <x>20</x>
            <y>20</y>
-           <width>939</width>
+           <width>881</width>
            <height>419</height>
           </rect>
          </property>
@@ -2656,6 +2659,13 @@
             <width>95</width>
             <height>20</height>
            </rect>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>10</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
           </property>
           <property name="text">
            <string>Fecha</string>
@@ -2679,6 +2689,13 @@
             <width>95</width>
             <height>20</height>
            </rect>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>10</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
           </property>
           <property name="text">
            <string>Localidad</string>
@@ -2729,6 +2746,13 @@
              </colorrole>
             </disabled>
            </palette>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>10</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
           </property>
           <property name="dragEnabled">
            <bool>true</bool>
@@ -2801,6 +2825,13 @@
             <height>20</height>
            </rect>
           </property>
+          <property name="font">
+           <font>
+            <pointsize>10</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
           <property name="text">
            <string>Chofer</string>
           </property>
@@ -2813,6 +2844,13 @@
             <width>111</width>
             <height>31</height>
            </rect>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>8</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
           </property>
           <property name="text">
            <string>Inspeccionar</string>
@@ -2827,6 +2865,13 @@
             <height>31</height>
            </rect>
           </property>
+          <property name="font">
+           <font>
+            <pointsize>8</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
           <property name="text">
            <string>Agregar</string>
           </property>
@@ -2838,10 +2883,10 @@
          </property>
          <property name="geometry">
           <rect>
-           <x>-70</x>
-           <y>420</y>
-           <width>939</width>
-           <height>419</height>
+           <x>910</x>
+           <y>40</y>
+           <width>861</width>
+           <height>391</height>
           </rect>
          </property>
          <property name="frameShape">
@@ -2853,7 +2898,7 @@
          <widget class="QLineEdit" name="lineEdit_buscar_4">
           <property name="geometry">
            <rect>
-            <x>260</x>
+            <x>180</x>
             <y>70</y>
             <width>411</width>
             <height>22</height>
@@ -2863,7 +2908,7 @@
          <widget class="QTableWidget" name="tabla_seleccionar_datos">
           <property name="geometry">
            <rect>
-            <x>210</x>
+            <x>130</x>
             <y>100</y>
             <width>721</width>
             <height>271</height>
@@ -2913,7 +2958,7 @@
          <widget class="QPushButton" name="btn_buscar_3">
           <property name="geometry">
            <rect>
-            <x>680</x>
+            <x>600</x>
             <y>60</y>
             <width>71</width>
             <height>31</height>
@@ -2926,7 +2971,7 @@
          <widget class="QLabel" name="label_42">
           <property name="geometry">
            <rect>
-            <x>290</x>
+            <x>210</x>
             <y>10</y>
             <width>181</width>
             <height>31</height>
@@ -2946,7 +2991,7 @@
          <widget class="QPushButton" name="btn_agregar_a_planilla">
           <property name="geometry">
            <rect>
-            <x>820</x>
+            <x>740</x>
             <y>60</y>
             <width>111</width>
             <height>31</height>
@@ -2959,11 +3004,18 @@
          <widget class="QPushButton" name="btn_agregar_localidad_planilla">
           <property name="geometry">
            <rect>
-            <x>90</x>
-            <y>100</y>
+            <x>10</x>
+            <y>140</y>
             <width>111</width>
             <height>31</height>
            </rect>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>8</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
           </property>
           <property name="text">
            <string>Agregar Localidad</string>
@@ -2972,11 +3024,18 @@
          <widget class="QPushButton" name="btn_agregar_producto_planilla">
           <property name="geometry">
            <rect>
-            <x>90</x>
-            <y>140</y>
+            <x>10</x>
+            <y>260</y>
             <width>111</width>
             <height>31</height>
            </rect>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>8</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
           </property>
           <property name="text">
            <string>Agregar Producto</string>
@@ -2985,11 +3044,18 @@
          <widget class="QPushButton" name="btn_agregar_chofer_planilla">
           <property name="geometry">
            <rect>
-            <x>90</x>
+            <x>10</x>
             <y>180</y>
             <width>111</width>
             <height>31</height>
            </rect>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>8</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
           </property>
           <property name="text">
            <string>Agregar Chofer</string>
@@ -2998,11 +3064,18 @@
          <widget class="QPushButton" name="btn_agregar_cliente_planilla">
           <property name="geometry">
            <rect>
-            <x>90</x>
-            <y>260</y>
+            <x>10</x>
+            <y>100</y>
             <width>111</width>
             <height>31</height>
            </rect>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>8</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
           </property>
           <property name="text">
            <string>Agregar Cliente</string>
@@ -3011,7 +3084,7 @@
          <widget class="QLabel" name="label_46">
           <property name="geometry">
            <rect>
-            <x>90</x>
+            <x>10</x>
             <y>40</y>
             <width>51</width>
             <height>31</height>
@@ -3028,24 +3101,21 @@
            <string>Fecha</string>
           </property>
          </widget>
-         <widget class="QLineEdit" name="lineEdit_fecha">
-          <property name="geometry">
-           <rect>
-            <x>90</x>
-            <y>70</y>
-            <width>101</width>
-            <height>22</height>
-           </rect>
-          </property>
-         </widget>
          <widget class="QPushButton" name="btn_agregar_vehiculo_planilla">
           <property name="geometry">
            <rect>
-            <x>90</x>
+            <x>10</x>
             <y>220</y>
             <width>111</width>
             <height>31</height>
            </rect>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>8</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
           </property>
           <property name="text">
            <string>Agregar Vehiculo</string>
@@ -3058,10 +3128,10 @@
          </property>
          <property name="geometry">
           <rect>
-           <x>900</x>
-           <y>440</y>
-           <width>581</width>
-           <height>419</height>
+           <x>610</x>
+           <y>480</y>
+           <width>1031</width>
+           <height>331</height>
           </rect>
          </property>
          <property name="frameShape">
@@ -3074,9 +3144,9 @@
           <property name="geometry">
            <rect>
             <x>10</x>
-            <y>10</y>
-            <width>561</width>
-            <height>201</height>
+            <y>90</y>
+            <width>601</width>
+            <height>151</height>
            </rect>
           </property>
           <property name="palette">
@@ -3116,22 +3186,42 @@
             </disabled>
            </palette>
           </property>
+          <property name="font">
+           <font>
+            <pointsize>10</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
           <property name="dragEnabled">
            <bool>true</bool>
           </property>
+          <attribute name="horizontalHeaderDefaultSectionSize">
+           <number>200</number>
+          </attribute>
+          <column>
+           <property name="text">
+            <string>Tipo</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Detalle</string>
+           </property>
+          </column>
          </widget>
          <widget class="QLabel" name="label_45">
           <property name="geometry">
            <rect>
-            <x>20</x>
-            <y>220</y>
-            <width>51</width>
+            <x>360</x>
+            <y>250</y>
+            <width>71</width>
             <height>31</height>
            </rect>
           </property>
           <property name="font">
            <font>
-            <pointsize>10</pointsize>
+            <pointsize>12</pointsize>
             <weight>75</weight>
             <bold>true</bold>
            </font>
@@ -3143,21 +3233,33 @@
          <widget class="QLineEdit" name="lineEdit_total">
           <property name="geometry">
            <rect>
-            <x>20</x>
+            <x>430</x>
             <y>250</y>
             <width>161</width>
             <height>31</height>
            </rect>
           </property>
+          <property name="font">
+           <font>
+            <pointsize>10</pointsize>
+           </font>
+          </property>
          </widget>
          <widget class="QPushButton" name="btn_eliminar_seleccion">
           <property name="geometry">
            <rect>
-            <x>450</x>
-            <y>220</y>
+            <x>610</x>
+            <y>250</y>
             <width>111</width>
             <height>31</height>
            </rect>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>8</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
           </property>
           <property name="text">
            <string>ELIMINAR</string>
@@ -3166,11 +3268,18 @@
          <widget class="QPushButton" name="btn_continuar_planilla">
           <property name="geometry">
            <rect>
-            <x>450</x>
+            <x>900</x>
             <y>250</y>
             <width>111</width>
             <height>31</height>
            </rect>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>8</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
           </property>
           <property name="text">
            <string>CONTINUAR</string>
@@ -3179,17 +3288,15 @@
          <widget class="QLabel" name="label_47">
           <property name="geometry">
            <rect>
-            <x>240</x>
-            <y>220</y>
-            <width>51</width>
+            <x>10</x>
+            <y>250</y>
+            <width>71</width>
             <height>31</height>
            </rect>
           </property>
           <property name="font">
            <font>
-            <pointsize>10</pointsize>
-            <weight>75</weight>
-            <bold>true</bold>
+            <pointsize>12</pointsize>
            </font>
           </property>
           <property name="text">
@@ -3199,10 +3306,142 @@
          <widget class="QLineEdit" name="lineEdit_fecha_2">
           <property name="geometry">
            <rect>
-            <x>240</x>
+            <x>80</x>
             <y>250</y>
             <width>161</width>
             <height>31</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>10</pointsize>
+           </font>
+          </property>
+         </widget>
+         <widget class="QTableWidget" name="tabla_resumen_productos">
+          <property name="geometry">
+           <rect>
+            <x>620</x>
+            <y>90</y>
+            <width>401</width>
+            <height>141</height>
+           </rect>
+          </property>
+          <property name="palette">
+           <palette>
+            <active>
+             <colorrole role="Base">
+              <brush brushstyle="SolidPattern">
+               <color alpha="255">
+                <red>255</red>
+                <green>255</green>
+                <blue>255</blue>
+               </color>
+              </brush>
+             </colorrole>
+            </active>
+            <inactive>
+             <colorrole role="Base">
+              <brush brushstyle="SolidPattern">
+               <color alpha="255">
+                <red>255</red>
+                <green>255</green>
+                <blue>255</blue>
+               </color>
+              </brush>
+             </colorrole>
+            </inactive>
+            <disabled>
+             <colorrole role="Base">
+              <brush brushstyle="SolidPattern">
+               <color alpha="255">
+                <red>189</red>
+                <green>212</green>
+                <blue>255</blue>
+               </color>
+              </brush>
+             </colorrole>
+            </disabled>
+           </palette>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>10</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="dragEnabled">
+           <bool>true</bool>
+          </property>
+          <column>
+           <property name="text">
+            <string>Detalle</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Precio</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Cantidad</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Subtotal</string>
+           </property>
+          </column>
+         </widget>
+         <widget class="QLabel" name="label_48">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>50</y>
+            <width>161</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>12</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>Datos de la planilla</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_49">
+          <property name="geometry">
+           <rect>
+            <x>620</x>
+            <y>50</y>
+            <width>211</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>12</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>Productos Seleccionados</string>
+          </property>
+         </widget>
+         <widget class="QLineEdit" name="lineEdit_fecha">
+          <property name="geometry">
+           <rect>
+            <x>260</x>
+            <y>50</y>
+            <width>101</width>
+            <height>22</height>
            </rect>
           </property>
          </widget>

@@ -117,6 +117,21 @@ class Main(QMainWindow):
         self.tabla_cliente.clicked.connect(lambda: self.cliente.clicked_tabla(self) if hasattr(self.cliente, 'clicked_tabla') else None)
         # El lineEdit_buscar_cliente se usa para escribir el texto a filtrar en la búsqueda de clientes.
 
+        self.ultima_entidad = None
+        self.cliente_seleccionado = None
+        self.localidad_seleccionada = None
+        self.chofer_seleccionado = None
+        self.vehiculo_seleccionado = None
+        # Conexión de botones para seleccionar entidad
+        self.btn_agregar_localidad_planilla.clicked.connect(lambda: self.set_entidad('localidad'))
+        self.btn_agregar_producto_planilla.clicked.connect(lambda: self.set_entidad('producto'))
+        self.btn_agregar_chofer_planilla.clicked.connect(lambda: self.set_entidad('chofer'))
+        self.btn_agregar_vehiculo_planilla.clicked.connect(lambda: self.set_entidad('vehiculo'))
+        self.btn_agregar_cliente_planilla.clicked.connect(lambda: self.set_entidad('cliente'))
+        # Eliminar conexión innecesaria:
+        # self.btn_buscar_3.clicked.connect(self.buscar_en_tabla_seleccionar)
+        self.btn_agregar_a_planilla.clicked.connect(self.agregar_a_resumen)
+
     def cargar_tabla(self, query, headers):
         import sqlite3
         conn = sqlite3.connect('pedidos.sqlite3')
@@ -165,6 +180,77 @@ class Main(QMainWindow):
             self.frame_6.setVisible(True)
         if self.frame_10:
             self.frame_10.setVisible(True)
+
+    def set_entidad(self, entidad):
+        self.ultima_entidad = entidad
+
+    def agregar_a_resumen(self):
+        row = self.tabla_seleccionar_datos.currentRow()
+        if row == -1 or not self.ultima_entidad:
+            return
+        # Detectar índice según headers
+        def get_index(header_name):
+            headers = [self.tabla_seleccionar_datos.horizontalHeaderItem(j).text() for j in range(self.tabla_seleccionar_datos.columnCount())]
+            try:
+                return headers.index(header_name)
+            except ValueError:
+                return None
+        datos = [self.tabla_seleccionar_datos.item(row, col).text() if self.tabla_seleccionar_datos.item(row, col) else "" for col in range(self.tabla_seleccionar_datos.columnCount())]
+        # Solo actualizar la variable correspondiente
+        if self.ultima_entidad == 'cliente':
+            idx = get_index('Nombre')
+            self.cliente_seleccionado = datos if idx is not None else None
+        elif self.ultima_entidad == 'localidad':
+            idx = get_index('nombreloc')
+            if idx is None:
+                idx = get_index('Nombre')
+            self.localidad_seleccionada = datos if idx is not None else None
+        elif self.ultima_entidad == 'chofer':
+            idx = get_index('Nombre')
+            self.chofer_seleccionado = datos if idx is not None else None
+        elif self.ultima_entidad == 'vehiculo':
+            idx = get_index('Descripción')
+            self.vehiculo_seleccionado = datos if idx is not None else None
+        self.actualizar_tabla_resumen()
+
+    def actualizar_tabla_resumen(self):
+        nombres = ["Cliente", "Localidad", "Chofer", "Vehiculo"]
+        # Solo inicializar la tabla una vez si está vacía
+        if self.tabla_resumen.rowCount() != 4 or self.tabla_resumen.columnCount() != 2:
+            self.tabla_resumen.setRowCount(4)
+            self.tabla_resumen.setColumnCount(2)
+            self.tabla_resumen.setHorizontalHeaderLabels(["Entidad", "Detalle"])
+            for i, nombre in enumerate(nombres):
+                self.tabla_resumen.setItem(i, 0, QTableWidgetItem(nombre))
+        # Cliente
+        if self.cliente_seleccionado:
+            idx = self._get_index('Nombre', self.cliente_seleccionado)
+            if idx is not None:
+                self.tabla_resumen.setItem(0, 1, QTableWidgetItem(self.cliente_seleccionado[idx]))
+        # Localidad
+        if self.localidad_seleccionada:
+            idx = self._get_index('nombreloc', self.localidad_seleccionada)
+            if idx is None:
+                idx = self._get_index('Nombre', self.localidad_seleccionada)
+            if idx is not None:
+                self.tabla_resumen.setItem(1, 1, QTableWidgetItem(self.localidad_seleccionada[idx]))
+        # Chofer
+        if self.chofer_seleccionado:
+            idx = self._get_index('Nombre', self.chofer_seleccionado)
+            if idx is not None:
+                self.tabla_resumen.setItem(2, 1, QTableWidgetItem(self.chofer_seleccionado[idx]))
+        # Vehiculo
+        if self.vehiculo_seleccionado:
+            idx = self._get_index('Descripción', self.vehiculo_seleccionado)
+            if idx is not None:
+                self.tabla_resumen.setItem(3, 1, QTableWidgetItem(self.vehiculo_seleccionado[idx]))
+
+    def _get_index(self, header_name, datos):
+        headers = [self.tabla_seleccionar_datos.horizontalHeaderItem(j).text() for j in range(self.tabla_seleccionar_datos.columnCount())]
+        try:
+            return headers.index(header_name)
+        except ValueError:
+            return None
 
 # ------ main -------------
 if __name__ == "__main__":

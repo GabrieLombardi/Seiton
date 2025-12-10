@@ -16,12 +16,31 @@ class PlanillaWindow(QtWidgets.QWidget):
         self.btn_agregar_chofer_planilla = self.findChild(QtWidgets.QPushButton, "btn_agregar_chofer_planilla")
         self.btn_agregar_vehiculo_planilla = self.findChild(QtWidgets.QPushButton, "btn_agregar_vehiculo_planilla")
         self.btn_agregar_cliente_planilla = self.findChild(QtWidgets.QPushButton, "btn_agregar_cliente_planilla")
+        self.btn_agregar_a_planilla = self.findChild(QtWidgets.QPushButton, "btn_agregar_a_planilla")
+        self.tabla_resumen = self.findChild(QtWidgets.QTableWidget, "tabla_resumen")
         # Conexión de botones para filtrar y mostrar datos en tabla_seleccionar_datos
         self.btn_agregar_localidad_planilla.clicked.connect(self.mostrar_localidades)
         self.btn_agregar_producto_planilla.clicked.connect(self.mostrar_productos)
         self.btn_agregar_chofer_planilla.clicked.connect(self.mostrar_choferes)
         self.btn_agregar_vehiculo_planilla.clicked.connect(self.mostrar_vehiculos)
         self.btn_agregar_cliente_planilla.clicked.connect(self.mostrar_clientes)
+        if self.btn_agregar_a_planilla:
+            self.btn_agregar_a_planilla.clicked.connect(self.agregar_a_resumen)
+
+        self.ultima_entidad = None
+        self.cliente_seleccionado = None
+        self.localidad_seleccionada = None
+        self.chofer_seleccionado = None
+        self.vehiculo_seleccionado = None
+
+        # Inicializar tabla_resumen con 4 filas y 1 columna
+        self.tabla_resumen.setRowCount(4)
+        self.tabla_resumen.setColumnCount(2)
+        self.tabla_resumen.setHorizontalHeaderLabels(["Entidad", "Detalle"])
+        nombres = ["Cliente", "Localidad", "Chofer", "Vehiculo"]
+        for i, nombre in enumerate(nombres):
+            self.tabla_resumen.setItem(i, 0, QtWidgets.QTableWidgetItem(nombre))
+            self.tabla_resumen.setItem(i, 1, QtWidgets.QTableWidgetItem(""))
 
     def cargar_tabla(self, query, headers):
         conn = sqlite3.connect('pedidos.sqlite3')
@@ -64,4 +83,39 @@ class PlanillaWindow(QtWidgets.QWidget):
         query = "SELECT c.id_cliente, c.nombre, c.cuit, c.direccion, c.tel, c.dni, l.nombreloc FROM cliente c LEFT JOIN localidad l ON c.id_loc = l.Id_localidad"
         headers = ['ID', 'Nombre', 'Cuit', 'Dirección', 'Teléfono', 'DNI', 'Localidad']
         self.cargar_tabla(query, headers)
+
+    def set_entidad(self, entidad):
+        self.ultima_entidad = entidad
+
+    def agregar_a_resumen(self):
+        row = self.tabla_seleccionar_datos.currentRow()
+        if row == -1 or not self.ultima_entidad:
+            return
+        # Solo copiar el campo específico (nombre) de cada entidad
+        if self.ultima_entidad == 'cliente':
+            indice_nombre = 1  # columna del nombre en tabla_seleccionar_datos
+            item = self.tabla_seleccionar_datos.item(row, indice_nombre)
+            nombre = item.text() if item else ""
+            self.tabla_resumen.setItem(0, 1, QtWidgets.QTableWidgetItem(str(nombre)))
+        elif self.ultima_entidad == 'localidad':
+            indice_nombre = 1
+            item = self.tabla_seleccionar_datos.item(row, indice_nombre)
+            nombre = item.text() if item else ""
+            self.tabla_resumen.setItem(1, 1, QtWidgets.QTableWidgetItem(str(nombre)))
+        elif self.ultima_entidad == 'chofer':
+            indice_nombre = 1
+            item = self.tabla_seleccionar_datos.item(row, indice_nombre)
+            nombre = item.text() if item else ""
+            self.tabla_resumen.setItem(2, 1, QtWidgets.QTableWidgetItem(str(nombre)))
+        elif self.ultima_entidad == 'vehiculo':
+            indice_nombre = 1
+            item = self.tabla_seleccionar_datos.item(row, indice_nombre)
+            nombre = item.text() if item else ""
+            self.tabla_resumen.setItem(3, 1, QtWidgets.QTableWidgetItem(str(nombre)))
+
+    def showEvent(self, event):
+        super().showEvent(event)
+        # Forzar encabezados verticales cada vez que se muestra la ventana
+        self.tabla_resumen.setVerticalHeaderLabels(["Cliente", "Localidad", "Chofer", "Vehiculo"])
+
 
