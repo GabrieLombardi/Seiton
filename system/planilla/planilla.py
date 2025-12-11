@@ -32,6 +32,10 @@ class PlanillaWindow(QtWidgets.QWidget):
         self.localidad_seleccionada = None
         self.chofer_seleccionado = None
         self.vehiculo_seleccionado = None
+        self.id_cliente_seleccionado = None
+        self.id_localidad_seleccionada = None
+        self.id_chofer_seleccionado = None
+        self.id_vehiculo_seleccionado = None
 
         # Inicializar tabla_resumen con 4 filas y 1 columna
         self.tabla_resumen.setRowCount(4)
@@ -91,31 +95,33 @@ class PlanillaWindow(QtWidgets.QWidget):
         row = self.tabla_seleccionar_datos.currentRow()
         if row == -1 or not self.ultima_entidad:
             return
-        # Solo copiar el campo específico (nombre) de cada entidad
+        # Guardar el ID real y mostrar el nombre en la tabla resumen
         if self.ultima_entidad == 'cliente':
-            indice_nombre = 1  # columna del nombre en tabla_seleccionar_datos
-            item = self.tabla_seleccionar_datos.item(row, indice_nombre)
-            nombre = item.text() if item else ""
+            id_item = self.tabla_seleccionar_datos.item(row, 0)
+            nombre_item = self.tabla_seleccionar_datos.item(row, 1)
+            self.id_cliente_seleccionado = id_item.text() if id_item else None
+            nombre = nombre_item.text() if nombre_item else ""
             self.tabla_resumen.setItem(0, 1, QtWidgets.QTableWidgetItem(str(nombre)))
         elif self.ultima_entidad == 'localidad':
-            indice_nombre = 1
-            item = self.tabla_seleccionar_datos.item(row, indice_nombre)
-            nombre = item.text() if item else ""
+            id_item = self.tabla_seleccionar_datos.item(row, 0)
+            nombre_item = self.tabla_seleccionar_datos.item(row, 1)
+            self.id_localidad_seleccionada = id_item.text() if id_item else None
+            nombre = nombre_item.text() if nombre_item else ""
             self.tabla_resumen.setItem(1, 1, QtWidgets.QTableWidgetItem(str(nombre)))
         elif self.ultima_entidad == 'chofer':
-            indice_nombre = 1
-            item = self.tabla_seleccionar_datos.item(row, indice_nombre)
-            nombre = item.text() if item else ""
+            id_item = self.tabla_seleccionar_datos.item(row, 0)
+            nombre_item = self.tabla_seleccionar_datos.item(row, 1)
+            self.id_chofer_seleccionado = id_item.text() if id_item else None
+            nombre = nombre_item.text() if nombre_item else ""
             self.tabla_resumen.setItem(2, 1, QtWidgets.QTableWidgetItem(str(nombre)))
         elif self.ultima_entidad == 'vehiculo':
-            indice_nombre = 1
-            item = self.tabla_seleccionar_datos.item(row, indice_nombre)
-            nombre = item.text() if item else ""
+            id_item = self.tabla_seleccionar_datos.item(row, 0)
+            nombre_item = self.tabla_seleccionar_datos.item(row, 1)
+            self.id_vehiculo_seleccionado = id_item.text() if id_item else None
+            nombre = nombre_item.text() if nombre_item else ""
             self.tabla_resumen.setItem(3, 1, QtWidgets.QTableWidgetItem(str(nombre)))
 
     def showEvent(self, event):
         super().showEvent(event)
         # Forzar encabezados verticales cada vez que se muestra la ventana
         self.tabla_resumen.setVerticalHeaderLabels(["Cliente", "Localidad", "Chofer", "Vehiculo"])
-
-
