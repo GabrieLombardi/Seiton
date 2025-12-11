@@ -25,10 +25,10 @@ class Cliente():
     def showClientes(self, main_window):
         try:
             main_window.tabla_cliente.setColumnCount(7)
-            main_window.tabla_cliente.setHorizontalHeaderLabels(["ID", "Nombre", "CUIT", "Dirección", "Tel", "DNI", "Ciudad"])
+            main_window.tabla_cliente.setHorizontalHeaderLabels(["ID", "Nombre", "CUIT", "DNI", "Tel", "Dirección", "Ciudad"])
             miCrud = CRUD()
             consulta = """
-                SELECT c.id_cliente, c.nombre, c.cuit, c.direccion, c.tel, c.dni, l.nombreloc
+                SELECT c.id_cliente, c.nombre, c.cuit, c.dni, c.tel, c.direccion, l.nombreloc
                 FROM cliente c
                 LEFT JOIN localidad l ON c.id_loc = l.Id_localidad;
             """
@@ -49,7 +49,7 @@ class Cliente():
     def searchClientes(self, main_window):
         try:
             main_window.tabla_cliente.setColumnCount(6)
-            main_window.tabla_cliente.setHorizontalHeaderLabels(["ID", "Nombre", "CUIT", "DNI", "Ciudad", "Teléfono"])
+            main_window.tabla_cliente.setHorizontalHeaderLabels(["ID", "Nombre", "CUIT", "DNI","Direccion", "Ciudad", "Teléfono"])
             conexion_BD = sqlite3.connect("pedidos.sqlite3")
             cursor = conexion_BD.cursor()
             buscar = main_window.lineEdit_buscar_cliente.text()
