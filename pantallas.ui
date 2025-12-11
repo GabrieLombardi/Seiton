@@ -1823,8 +1823,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>100</width>
-            <height>30</height>
+            <width>98</width>
+            <height>28</height>
            </rect>
           </property>
           <attribute name="label">
@@ -2276,8 +2276,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>100</width>
-            <height>30</height>
+            <width>98</width>
+            <height>28</height>
            </rect>
           </property>
           <attribute name="label">
@@ -2639,8 +2639,8 @@
         <widget class="QFrame" name="frame_5">
          <property name="geometry">
           <rect>
-           <x>20</x>
-           <y>20</y>
+           <x>0</x>
+           <y>-120</y>
            <width>881</width>
            <height>419</height>
           </rect>
@@ -2883,8 +2883,8 @@
          </property>
          <property name="geometry">
           <rect>
-           <x>910</x>
-           <y>40</y>
+           <x>10</x>
+           <y>260</y>
            <width>861</width>
            <height>391</height>
           </rect>
@@ -3126,8 +3126,8 @@
          </property>
          <property name="geometry">
           <rect>
-           <x>610</x>
-           <y>480</y>
+           <x>10</x>
+           <y>600</y>
            <width>1031</width>
            <height>331</height>
           </rect>
@@ -3428,6 +3428,283 @@
            </rect>
           </property>
          </widget>
+        </widget>
+        <widget class="QFrame" name="frame_reporte">
+         <property name="geometry">
+          <rect>
+           <x>1050</x>
+           <y>60</y>
+           <width>761</width>
+           <height>651</height>
+          </rect>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <widget class="QLabel" name="label_localidad_reporte">
+          <property name="geometry">
+           <rect>
+            <x>290</x>
+            <y>10</y>
+            <width>321</width>
+            <height>41</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>16</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>TextLabel</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_chofer_reporte">
+          <property name="geometry">
+           <rect>
+            <x>290</x>
+            <y>50</y>
+            <width>241</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>14</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>TextLabel</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_vehiculo_reporte">
+          <property name="geometry">
+           <rect>
+            <x>290</x>
+            <y>90</y>
+            <width>211</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>14</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>TextLabel</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_46">
+          <property name="geometry">
+           <rect>
+            <x>20</x>
+            <y>150</y>
+            <width>161</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>14</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>Cliente:</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_cliente_reporte">
+          <property name="geometry">
+           <rect>
+            <x>20</x>
+            <y>180</y>
+            <width>401</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>14</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>TextLabel</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_51">
+          <property name="geometry">
+           <rect>
+            <x>20</x>
+            <y>220</y>
+            <width>171</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>12</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>Lista de Productos:</string>
+          </property>
+         </widget>
+         <widget class="QTableWidget" name="tabla_productos_reporte">
+          <property name="geometry">
+           <rect>
+            <x>20</x>
+            <y>250</y>
+            <width>721</width>
+            <height>341</height>
+           </rect>
+          </property>
+          <property name="palette">
+           <palette>
+            <active>
+             <colorrole role="Base">
+              <brush brushstyle="SolidPattern">
+               <color alpha="255">
+                <red>255</red>
+                <green>255</green>
+                <blue>255</blue>
+               </color>
+              </brush>
+             </colorrole>
+            </active>
+            <inactive>
+             <colorrole role="Base">
+              <brush brushstyle="SolidPattern">
+               <color alpha="255">
+                <red>255</red>
+                <green>255</green>
+                <blue>255</blue>
+               </color>
+              </brush>
+             </colorrole>
+            </inactive>
+            <disabled>
+             <colorrole role="Base">
+              <brush brushstyle="SolidPattern">
+               <color alpha="255">
+                <red>189</red>
+                <green>212</green>
+                <blue>255</blue>
+               </color>
+              </brush>
+             </colorrole>
+            </disabled>
+           </palette>
+          </property>
+          <property name="dragEnabled">
+           <bool>true</bool>
+          </property>
+          <attribute name="horizontalHeaderDefaultSectionSize">
+           <number>180</number>
+          </attribute>
+          <column>
+           <property name="text">
+            <string>Detalle del Producto</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Precio </string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Cantidad</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Subtotal</string>
+           </property>
+          </column>
+         </widget>
+         <widget class="QLabel" name="label_52">
+          <property name="geometry">
+           <rect>
+            <x>460</x>
+            <y>600</y>
+            <width>81</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>12</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>TOTAL: </string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_total_reporte">
+          <property name="geometry">
+           <rect>
+            <x>530</x>
+            <y>600</y>
+            <width>171</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>12</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>Lista de Productos:</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_fecha_reporte">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>40</y>
+            <width>131</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>14</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>TextLabel</string>
+          </property>
+         </widget>
+        </widget>
+        <widget class="QPushButton" name="btn_descargar_reporte">
+         <property name="geometry">
+          <rect>
+           <x>1660</x>
+           <y>720</y>
+           <width>151</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Descargar</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="btn_cancelar_reporte">
+         <property name="geometry">
+          <rect>
+           <x>1500</x>
+           <y>720</y>
+           <width>151</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Cancelar</string>
+         </property>
         </widget>
        </widget>
       </widget>

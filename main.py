@@ -145,6 +145,26 @@ class Main(QMainWindow):
         if hasattr(self, 'btn_continuar_planilla'):
             self.btn_continuar_planilla.clicked.connect(self.guardar_planilla)
 
+        # Referencias a los nuevos widgets del reporte
+        self.frame_reporte = self.findChild(QFrame, "frame_reporte")
+        self.label_fecha_reporte = self.findChild(QLabel, "label_fecha_reporte")
+        self.label_localidad_reporte = self.findChild(QLabel, "label_localidad_reporte")
+        self.label_chofer_reporte = self.findChild(QLabel, "label_chofer_reporte")
+        self.label_vehiculo_reporte = self.findChild(QLabel, "label_vehiculo_reporte")
+        self.label_cliente_reporte = self.findChild(QLabel, "label_cliente_reporte")
+        self.label_total_reporte = self.findChild(QLabel, "label_total_reporte")
+        self.tabla_productos_reporte = self.findChild(QTableWidget, "tabla_productos_reporte")
+        self.btn_volver_reporte = self.findChild(QPushButton, "btn_volver_reporte")
+        self.btn_descargar_reporte = self.findChild(QPushButton, "btn_descargar_reporte")
+
+        # Ocultar el frame de reporte al inicio
+        if self.frame_reporte:
+            self.frame_reporte.setVisible(False)
+        if self.btn_volver_reporte:
+            self.btn_volver_reporte.clicked.connect(self.volver_de_reporte)
+        if self.btn_descargar_reporte:
+            self.btn_descargar_reporte.clicked.connect(self.descargar_reporte_imagen)
+
     def actualizar_label_cod_planilla(self):
         import sqlite3
         conn = sqlite3.connect('pedidos.sqlite3')
@@ -186,37 +206,121 @@ class Main(QMainWindow):
 
     def guardar_planilla(self):
         import sqlite3
+        # Validar que todos los IDs estén seleccionados
         id_cliente = self.id_cliente_seleccionado if hasattr(self, 'id_cliente_seleccionado') else None
         id_chofer = self.id_chofer_seleccionado if hasattr(self, 'id_chofer_seleccionado') else None
         id_localidad = self.id_localidad_seleccionada if hasattr(self, 'id_localidad_seleccionada') else None
         id_vehiculo = self.id_vehiculo_seleccionado if hasattr(self, 'id_vehiculo_seleccionado') else None
+        if not all([id_cliente, id_chofer, id_localidad, id_vehiculo]):
+            QMessageBox.warning(self, "Faltan datos", "Debe seleccionar cliente, chofer, localidad y vehículo antes de continuar.")
+            return
+        if self.tabla_resumen_productos.rowCount() == 0:
+            QMessageBox.warning(self, "Faltan productos", "Debe agregar al menos un producto a la planilla.")
+            return
         fecha = QDate.currentDate().toString("dd/MM/yyyy")
         total = self.lineEdit_total.text() if hasattr(self, 'lineEdit_total') else "0"
         nro_planilla = int(self.label_cod_planilla.text()) if self.label_cod_planilla else None
-        conn = sqlite3.connect('pedidos.sqlite3')
-        cursor = conn.cursor()
-        cursor.execute(
-            "INSERT INTO planilla (nro_planilla, fecha, id_cliente, id_chofer, id_localidad, id_vehiculo, total) VALUES (?, ?, ?, ?, ?, ?, ?)",
-            (nro_planilla, fecha, id_cliente, id_chofer, id_localidad, id_vehiculo, total)
-        )
-        conn.commit()
-        id_planilla = cursor.lastrowid
-        for i in range(self.tabla_resumen_productos.rowCount()):
-            detalle = self.tabla_resumen_productos.item(i, 0).text() if self.tabla_resumen_productos.item(i, 0) else ""
-            cantidad = self.tabla_resumen_productos.item(i, 2).text() if self.tabla_resumen_productos.item(i, 2) else "0"
-            subtotal = self.tabla_resumen_productos.item(i, 3).text() if self.tabla_resumen_productos.item(i, 3) else "0"
-            cursor.execute("SELECT id_producto FROM Producto WHERE descripcion = ?", (detalle,))
-            res = cursor.fetchone()
-            id_producto = res[0] if res else None
+        try:
+            conn = sqlite3.connect('pedidos.sqlite3')
+            cursor = conn.cursor()
             cursor.execute(
-                "INSERT INTO productoxplanilla (id_planilla, id_producto, cantidad, subtotal) VALUES (?, ?, ?, ?)",
-                (id_planilla, id_producto, cantidad, subtotal)
+                "INSERT INTO planilla (nro_planilla, fecha, id_cliente, id_chofer, id_localidad, id_vehiculo, total) VALUES (?, ?, ?, ?, ?, ?, ?)",
+                (nro_planilla, fecha, id_cliente, id_chofer, id_localidad, id_vehiculo, total)
             )
-        conn.commit()
-        conn.close()
-        QMessageBox.information(self, "Guardado", "La planilla y los productos fueron guardados correctamente.")
+            conn.commit()
+            id_planilla = cursor.lastrowid
+            for i in range(self.tabla_resumen_productos.rowCount()):
+                id_producto = self.tabla_resumen_productos.item(i, 0).text() if self.tabla_resumen_productos.item(i, 0) else ""
+                cantidad = self.tabla_resumen_productos.item(i, 3).text() if self.tabla_resumen_productos.item(i, 3) else "0"
+                subtotal = self.tabla_resumen_productos.item(i, 4).text() if self.tabla_resumen_productos.item(i, 4) else "0"
+                if not id_producto:
+                    QMessageBox.warning(self, "Error de producto", f"No se encontró el ID de producto en la fila {i+1}.")
+                    continue
+                cursor.execute(
+                    "INSERT INTO productoxplanilla (id_planilla, id_producto, cantidad, subtotal) VALUES (?, ?, ?, ?)",
+                    (id_planilla, id_producto, cantidad, subtotal)
+                )
+            conn.commit()
+            conn.close()
+        except Exception as e:
+            QMessageBox.critical(self, "Error al guardar", f"Ocurrió un error al guardar la planilla: {str(e)}")
+            return
+        # Mostrar el reporte con los datos del último registro
+        try:
+            conn = sqlite3.connect('pedidos.sqlite3')
+            cursor = conn.cursor()
+            cursor.execute('''
+                SELECT p.fecha, l.nombreloc, ch.Nombre, v.descripcion, c.nombre, p.total, p.nro_planilla
+                FROM planilla p
+                LEFT JOIN localidad l ON p.id_localidad = l.Id_localidad
+                LEFT JOIN chofer ch ON p.id_chofer = ch.id_chofer
+                LEFT JOIN vehiculo v ON p.id_vehiculo = v.id_vehiculo
+                LEFT JOIN cliente c ON p.id_cliente = c.id_cliente
+                WHERE p.nro_planilla = ?
+            ''', (nro_planilla,))
+            row = cursor.fetchone()
+            if not row:
+                QMessageBox.critical(self, "Error", "No se pudo recuperar la planilla recién guardada.")
+                return
+            # Llenar los labels del reporte
+            if self.label_fecha_reporte: self.label_fecha_reporte.setText(str(row[0]))
+            if self.label_localidad_reporte: self.label_localidad_reporte.setText(str(row[1]))
+            if self.label_chofer_reporte: self.label_chofer_reporte.setText(str(row[2]))
+            if self.label_vehiculo_reporte: self.label_vehiculo_reporte.setText(str(row[3]))
+            if self.label_cliente_reporte: self.label_cliente_reporte.setText(str(row[4]))
+            if self.label_total_reporte: self.label_total_reporte.setText(str(row[5]))
+            # Llenar la tabla de productos del reporte
+            if self.tabla_productos_reporte:
+                self.tabla_productos_reporte.setRowCount(0)
+                cursor.execute('''
+                    SELECT pr.descripcion, pr.precio_unid, pxp.cantidad, pxp.subtotal
+                    FROM productoxplanilla pxp
+                    JOIN Producto pr ON pxp.id_producto = pr.id_producto
+                    WHERE pxp.id_planilla = (SELECT id_planilla FROM planilla WHERE nro_planilla = ?)
+                ''', (nro_planilla,))
+                for prod in cursor.fetchall():
+                    row_pos = self.tabla_productos_reporte.rowCount()
+                    self.tabla_productos_reporte.insertRow(row_pos)
+                    self.tabla_productos_reporte.setItem(row_pos, 0, QTableWidgetItem(str(prod[0])))
+                    self.tabla_productos_reporte.setItem(row_pos, 1, QTableWidgetItem(str(prod[1])))
+                    self.tabla_productos_reporte.setItem(row_pos, 2, QTableWidgetItem(str(prod[2])))
+                    self.tabla_productos_reporte.setItem(row_pos, 3, QTableWidgetItem(str(prod[3])))
+            conn.close()
+        except Exception as e:
+            QMessageBox.critical(self, "Error al cargar reporte", f"Ocurrió un error al cargar el reporte: {str(e)}")
+            return
+        # Ocultar frames de carga y mostrar el reporte
+        if self.frame_6: self.frame_6.setVisible(False)
+        if self.frame_10: self.frame_10.setVisible(False)
+        if self.frame_reporte: self.frame_reporte.setVisible(True)
         # Actualizar el label para el próximo número
         self.actualizar_label_cod_planilla()
+
+    def volver_de_reporte(self):
+        # Ocultar el reporte y mostrar el menú principal
+        if self.frame_reporte: self.frame_reporte.setVisible(False)
+        if self.frame_6: self.frame_6.setVisible(True)
+        if self.frame_10: self.frame_10.setVisible(True)
+
+    def descargar_reporte_imagen(self):
+        # Guardar screenshot del frame_reporte como imagen en la carpeta planillas
+        from PyQt5.QtGui import QPixmap
+        from PyQt5.QtWidgets import QFileDialog
+        import os
+        if not self.frame_reporte:
+            QMessageBox.warning(self, "Error", "No se encontró el frame de reporte para descargar.")
+            return
+        carpeta = os.path.join(os.getcwd(), 'planillas')
+        if not os.path.exists(carpeta):
+            os.makedirs(carpeta)
+        nombre = QFileDialog.getSaveFileName(self, "Guardar reporte", carpeta, "Imagen PNG (*.png)")[0]
+        if not nombre:
+            return
+        if not nombre.lower().endswith('.png'):
+            nombre += '.png'
+        pixmap = QPixmap(self.frame_reporte.size())
+        self.frame_reporte.render(pixmap)
+        pixmap.save(nombre, 'PNG')
 
     def cargar_tabla(self, query, headers):
         import sqlite3
@@ -397,56 +501,7 @@ class Main(QMainWindow):
         except ValueError:
             return None
 
-    def guardar_planilla(self):
-        import sqlite3
-        # Asegurarse que los IDs sean enteros
-        try:
-            id_cliente = int(self.id_cliente_seleccionado)
-        except (TypeError, ValueError):
-            id_cliente = None
-        try:
-            id_chofer = int(self.id_chofer_seleccionado)
-        except (TypeError, ValueError):
-            id_chofer = None
-        try:
-            id_localidad = int(self.id_localidad_seleccionada)
-        except (TypeError, ValueError):
-            id_localidad = None
-        try:
-            id_vehiculo = int(self.id_vehiculo_seleccionado)
-        except (TypeError, ValueError):
-            id_vehiculo = None
-        fecha = QDate.currentDate().toString("dd/MM/yyyy")
-        total = self.lineEdit_total.text() if hasattr(self, 'lineEdit_total') else "0"
-        nro_planilla = int(self.label_cod_planilla.text()) if self.label_cod_planilla else None
-        # Validar que todas las entidades estén seleccionadas
-        if not all([id_cliente, id_chofer, id_localidad, id_vehiculo]):
-            QMessageBox.warning(self, "Faltan datos", "Debe seleccionar cliente, chofer, localidad y vehículo antes de guardar.")
-            return
-        conn = sqlite3.connect('pedidos.sqlite3')
-        cursor = conn.cursor()
-        cursor.execute(
-            "INSERT INTO planilla (nro_planilla, fecha, id_cliente, id_chofer, id_localidad, id_vehiculo, total) VALUES (?, ?, ?, ?, ?, ?, ?)",
-            (nro_planilla, fecha, id_cliente, id_chofer, id_localidad, id_vehiculo, total)
-        )
-        conn.commit()
-        id_planilla = cursor.lastrowid
-        for i in range(self.tabla_resumen_productos.rowCount()):
-            # Siempre usar el ID de la columna 0
-            try:
-                id_producto = int(self.tabla_resumen_productos.item(i, 0).text()) if self.tabla_resumen_productos.item(i, 0) else None
-            except (TypeError, ValueError):
-                id_producto = None
-            cantidad = self.tabla_resumen_productos.item(i, 3).text() if self.tabla_resumen_productos.item(i, 3) else "0"
-            subtotal = self.tabla_resumen_productos.item(i, 4).text() if self.tabla_resumen_productos.item(i, 4) else "0"
-            if id_producto:
-                cursor.execute(
-                    "INSERT INTO productoxplanilla (id_planilla, id_producto, cantidad, subtotal) VALUES (?, ?, ?, ?)",
-                    (id_planilla, id_producto, cantidad, subtotal)
-                )
-        conn.commit()
-        conn.close()
-        QMessageBox.information(self, "Guardado", "La planilla y los productos fueron guardados correctamente.")
+    # Versión duplicada eliminada. Usar solo la versión principal de guardar_planilla.
 
 # ------ main -------------
 if __name__ == "__main__":
