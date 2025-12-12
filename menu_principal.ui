@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1128</width>
-    <height>572</height>
+    <width>507</width>
+    <height>364</height>
    </rect>
   </property>
   <property name="palette">
@@ -431,16 +431,16 @@
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>440</x>
-     <y>40</y>
-     <width>261</width>
+     <x>160</x>
+     <y>30</y>
+     <width>291</width>
      <height>81</height>
     </rect>
    </property>
    <property name="font">
     <font>
      <family>Cascadia Mono</family>
-     <pointsize>48</pointsize>
+     <pointsize>46</pointsize>
      <weight>75</weight>
      <bold>true</bold>
     </font>
@@ -449,11 +449,11 @@
     <string>SEITON</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_2">
+  <widget class="QPushButton" name="btnPlanillas">
    <property name="geometry">
     <rect>
-     <x>380</x>
-     <y>250</y>
+     <x>120</x>
+     <y>140</y>
      <width>361</width>
      <height>31</height>
     </rect>
@@ -563,11 +563,11 @@
     <string>Planillas</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_3">
+  <widget class="QPushButton" name="btnProductos">
    <property name="geometry">
     <rect>
-     <x>380</x>
-     <y>300</y>
+     <x>120</x>
+     <y>190</y>
      <width>361</width>
      <height>31</height>
     </rect>
@@ -586,11 +586,11 @@
     <string>Productos</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_4">
+  <widget class="QPushButton" name="btnSalir">
    <property name="geometry">
     <rect>
-     <x>380</x>
-     <y>400</y>
+     <x>120</x>
+     <y>290</y>
      <width>361</width>
      <height>31</height>
     </rect>
@@ -609,11 +609,11 @@
     <string>Salir</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_5">
+  <widget class="QPushButton" name="btnDatos">
    <property name="geometry">
     <rect>
-     <x>380</x>
-     <y>350</y>
+     <x>120</x>
+     <y>240</y>
      <width>361</width>
      <height>31</height>
     </rect>
@@ -635,10 +635,10 @@
   <widget class="QPushButton" name="pushButton">
    <property name="geometry">
     <rect>
-     <x>10</x>
-     <y>30</y>
-     <width>71</width>
-     <height>71</height>
+     <x>20</x>
+     <y>10</y>
+     <width>41</width>
+     <height>41</height>
     </rect>
    </property>
    <property name="text">
@@ -646,7 +646,7 @@
    </property>
    <property name="icon">
     <iconset>
-     <normaloff>imagenes/volver_2.jpg</normaloff>imagenes/volver_2.jpg</iconset>
+     <normaloff>imagenes/deshacer-alt (1).png</normaloff>imagenes/deshacer-alt (1).png</iconset>
    </property>
    <property name="iconSize">
     <size>

@@ -2,7 +2,7 @@ from PyQt5 import uic, QtWidgets
 from PyQt5.QtCore import QDate
 import sqlite3
 
-class PlanillaWindow(QtWidgets.QWidget):
+class PlanillaWindow(QtWidgets.QMainWindow):
     def __init__(self, parent=None):
         super().__init__(parent)
         uic.loadUi("pantallas.ui", self)
@@ -19,32 +19,24 @@ class PlanillaWindow(QtWidgets.QWidget):
         self.btn_agregar_a_planilla = self.findChild(QtWidgets.QPushButton, "btn_agregar_a_planilla")
         self.tabla_resumen = self.findChild(QtWidgets.QTableWidget, "tabla_resumen")
         # Conexión de botones para filtrar y mostrar datos en tabla_seleccionar_datos
-        self.btn_agregar_localidad_planilla.clicked.connect(self.mostrar_localidades)
-        self.btn_agregar_producto_planilla.clicked.connect(self.mostrar_productos)
-        self.btn_agregar_chofer_planilla.clicked.connect(self.mostrar_choferes)
-        self.btn_agregar_vehiculo_planilla.clicked.connect(self.mostrar_vehiculos)
-        self.btn_agregar_cliente_planilla.clicked.connect(self.mostrar_clientes)
-        if self.btn_agregar_a_planilla:
-            self.btn_agregar_a_planilla.clicked.connect(self.agregar_a_resumen)
+        self.btn_agregar_localidad_planilla.clicked.connect(lambda: self.seleccionar_entidad('localidad'))
+        self.btn_agregar_producto_planilla.clicked.connect(lambda: self.seleccionar_entidad('producto'))
+        self.btn_agregar_chofer_planilla.clicked.connect(lambda: self.seleccionar_entidad('chofer'))
+        self.btn_agregar_vehiculo_planilla.clicked.connect(lambda: self.seleccionar_entidad('vehiculo'))
+        self.btn_agregar_cliente_planilla.clicked.connect(lambda: self.seleccionar_entidad('cliente'))
 
-        self.ultima_entidad = None
-        self.cliente_seleccionado = None
-        self.localidad_seleccionada = None
-        self.chofer_seleccionado = None
-        self.vehiculo_seleccionado = None
-        self.id_cliente_seleccionado = None
-        self.id_localidad_seleccionada = None
-        self.id_chofer_seleccionado = None
-        self.id_vehiculo_seleccionado = None
-
-        # Inicializar tabla_resumen con 4 filas y 1 columna
-        self.tabla_resumen.setRowCount(4)
-        self.tabla_resumen.setColumnCount(2)
-        self.tabla_resumen.setHorizontalHeaderLabels(["Entidad", "Detalle"])
-        nombres = ["Cliente", "Localidad", "Chofer", "Vehiculo"]
-        for i, nombre in enumerate(nombres):
-            self.tabla_resumen.setItem(i, 0, QtWidgets.QTableWidgetItem(nombre))
-            self.tabla_resumen.setItem(i, 1, QtWidgets.QTableWidgetItem(""))
+    def seleccionar_entidad(self, entidad):
+        self.ultima_entidad = entidad
+        if entidad == 'localidad':
+            self.mostrar_localidades()
+        elif entidad == 'producto':
+            self.mostrar_productos()
+        elif entidad == 'chofer':
+            self.mostrar_choferes()
+        elif entidad == 'vehiculo':
+            self.mostrar_vehiculos()
+        elif entidad == 'cliente':
+            self.mostrar_clientes()
 
     def cargar_tabla(self, query, headers):
         conn = sqlite3.connect('pedidos.sqlite3')
